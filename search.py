@@ -14,6 +14,7 @@ def main():
     print("States Explored:", finder.num_explored)
     print("Solution")
     finder.print()
+    finder.output_image("maze.png", show_explored=True)
     
     
     
