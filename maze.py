@@ -1,3 +1,6 @@
+import node
+import stack
+
 class Maze:
     
     def __init__(self, filename):
@@ -40,9 +43,53 @@ class Maze:
                     except IndexError:
                         row.append(False)
                 self.wall.append(row)
+        
+        
+    def solve(self):
+        """Finds a solution to maze, if only exists.""" 
+        
+        # Keep track of number of states explored
+        self.num_explored = 0
+        
+        # start with a frontier that contains the initial state
+        start = node.Node(state=self.start, parent=None, action=None)
+        frontier = stack.StackFrontier()
+        frontier.add(start)
+        
+        self.explored = set()
+        
+        while True:
+            # If nothing left in frontier, then no path
+            if frontier.empty():
+                raise Exception("No Solution.")
             
+            # Choose a node from the frontier
+            removed_node = frontier.remove()
+            self.num_explored += 1
             
-    
+            # if node is the goal, then we have a solution 
+            if removed_node.state == self.goal:
+                actions = []
+                cells = []
+                while removed_node.parent is not None:
+                    actions.append(removed_node.action)
+                    cells.append(removed_node.state)
+                    removed_node = removed_node.parent
+                actions.reverse()
+                cells.reverse()
+                self.solution = (actions, cells)
+                return
+            
+            # Mark node as explored
+            self.explored.add(removed_node.state)
+            
+            # Add neighbors to frontier
+            for action, state in self.neighbors(removed_node.state):
+                if not frontier.contains_state(state) and state not in self.explored:
+                    child = node.Node(state=state, parent=removed_node, action=action)
+                    frontier.add(child)
+              
+              
     def print(self):
         solution = self.solution[1] if self.solution is not None else None
         print()
@@ -61,4 +108,33 @@ class Maze:
             print()
         print()
                         
+                        
+    def neighbors(self, current_position):
+    # Extract the row and column from the current position
+        row, col = current_position
+
+    # Define possible moves and their directions
+        possible_moves = [
+            ("up", (row - 1, col)),    # Move up
+            ("down", (row + 1, col)),  # Move down
+            ("left", (row, col - 1)),  # Move left
+            ("right", (row, col + 1))  # Move right
+        ]
+
+        # List to store valid moves
+        valid_neighbors = []
+
+        # Check each move to see if it is valid
+        for direction, (new_row, new_col) in possible_moves:
+            # Check if the new position is within the grid boundaries
+            if 0 <= new_row < self.height and 0 <= new_col < self.width:
+            #     # Check if the new position is not a wall
+                if not self.wall[new_row][new_col]:
+            #         # Add the valid move to the list
+                    valid_neighbors.append((direction, (new_row, new_col)))
+
+        # Return the list of valid moves
+        return valid_neighbors
+
+         
         
