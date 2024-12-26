@@ -8,7 +8,7 @@ Finding a solution to a problem, like a navigator app that finds the best route 
 
 --> Clone the repository using the command below :
 ```bash
-# git clone https://github.com/divanov11/StudyBud.git
+git clone https://github.com/riskymind/Maze-AI-SEARCH.git
 
 ```
 
@@ -21,7 +21,7 @@ cd Maze_Search
 --> Create a virtual environment :
 ```bash
 # Let's install virtualenv first
-pip install virtualenv
+pip3 install virtualenv
 
 # Then we create our virtual environment
 virtualenv envname
@@ -30,7 +30,7 @@ virtualenv envname
 
 --> Activate the virtual environment :
 ```bash
-envname\scripts\activate
+source envname\scripts\activate
 
 ```
 
