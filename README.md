@@ -21,16 +21,19 @@ cd Maze_Search
 --> Create a virtual environment :
 ```bash
 # Let's install virtualenv first
-pip3 install virtualenv
-
-# Then we create our virtual environment
-virtualenv envname
+python3 -m venv myenv
 
 ```
 
 --> Activate the virtual environment :
 ```bash
-source envname\scripts\activate
+source myenv\scripts\activate
+
+```
+
+--> Deactivate the virtual environment :
+```bash
+deactive
 
 ```
 
