@@ -3,7 +3,7 @@ import maze
 
 def main():
     if len(sys.argv) != 2:
-        sys.exit("Usage: Python3 maze.py maze1.txt")
+        sys.exit("Usage: Python3 search.py maze1.txt")
     
     finder = maze.Maze(sys.argv[1])
     print("Maze: ")
@@ -14,7 +14,7 @@ def main():
     print("States Explored:", finder.num_explored)
     print("Solution")
     finder.print()
-    finder.output_image("maze.png", show_explored=True)
+    finder.output_image("maze.png")
     
     
     
